@@ -86,13 +86,13 @@ class PlanoController extends Controller
 
     /**
      * Send email
-     *
+     * TODO salvar plano no banco de dados, gerar pdf e armazenar no disco, anexar ao email, enviar email, depois de enviar email excluir pdf
      */
     public function sendEmail(Request $request)
     {
         // dd($request->all());
 
-        Mail::to('wesley.s.gomes@hotmail.com')->send(new TesteMail($request->all()));
+        // Mail::to('wesley.s.gomes@hotmail.com')->send(new TesteMail($request->all()));
 
         return response()->json(['message' => 'email enviado com sucesso']);
     }

@@ -19,7 +19,8 @@ Route::get('/', function() {
     return response()->json(['message' => 'tudo ok por aki']);
 });
 
-Route::post('mail', [PlanoController::class, 'sendEmail']);
+
+Route::post('/mail', [PlanoController::class, 'sendEmail']);
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
