@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\TesteMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class PlanoController extends Controller
 {
@@ -86,13 +87,14 @@ class PlanoController extends Controller
 
     /**
      * Send email
-     * TODO salvar plano no banco de dados, gerar pdf e armazenar no disco, anexar ao email, enviar email, depois de enviar email excluir pdf
+    *  @param  \Illuminate\Http\Request  $request
      */
     public function sendEmail(Request $request)
     {
-        // dd($request->all());
-
-        // Mail::to('wesley.s.gomes@hotmail.com')->send(new TesteMail($request->all()));
+        $data = $request->infos;
+        $plano = $request->plano_infos;
+        $data['pdf'] = PDF::loadView('pdfs.test', $plano);
+        Mail::to('wesley.s.gomes@hotmail.com')->send(new TesteMail($data));
 
         return response()->json(['message' => 'email enviado com sucesso']);
     }

@@ -30,6 +30,7 @@ class TesteMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.mailteste');
+        return $this->view('mails.mailteste')
+            ->attachData($this->data['pdf']->output(), "pdf.pdf");
     }
 }
