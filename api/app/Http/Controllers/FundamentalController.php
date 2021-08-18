@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\TesteMail;
+use App\Mail\CreatePlanFundamental;
+use App\Models\Fundamental;
+use App\Models\Plan;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use PDF;
 
-class PlanoController extends Controller
+class FundamentalController extends Controller
 {
+    protected $plano_fundamental;
+    protected $plano;
+
+    public function __construct(Fundamental $fundamental, Plan $plano)
+    {
+        $this->plano_fundamental = $fundamental;
+        $this->plano = $plano;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +26,8 @@ class PlanoController extends Controller
      */
     public function index()
     {
-        //
+
+        return response()->json(['message' => 'controller fundamental']);
     }
 
     /**
@@ -37,7 +48,17 @@ class PlanoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $plano = $this->plano->create($request->only('professor','turma','data_aula','tipo'));
+
+        $data = $request->except('professor','turma','data_aula','tipo');
+        $data['plan_id'] = $plano->id;
+        $fundamental = $this->plano_fundamental->create($data);
+        // $plano = $this->plano_fundamental->plan->create($request->all());
+        if(!$fundamental)
+            return response()->json(['message' => 'erro no cadastro!']);
+
+        return response()->json(['message' => 'plano cadastrao']);
     }
 
     /**
@@ -48,7 +69,10 @@ class PlanoController extends Controller
      */
     public function show($id)
     {
-        //
+        // $plano = $this->plano->findOrFail($id);
+        // dd($plano->fundamental);
+        $fundamental = $this->plano_fundamental->findOrFail($id)->plan;
+        dd($fundamental);
     }
 
     /**
@@ -87,16 +111,15 @@ class PlanoController extends Controller
 
     /**
      * Send email
-    *  @param  \Illuminate\Http\Request  $request
      */
-    public function sendEmail(Request $request)
+    public function sendEmailCreate($id)
     {
-        $data = $request->infos;
-
-        $plano = $request->plano_infos;
-        $data['pdf'] = PDF::loadView('pdfs.test', $plano);
-
-        Mail::to('wesley.s.gomes@hotmail.com')->send(new TesteMail($data));
+        $plano = $this->plano->findOrFail($id);
+        $data = $plano->only('professor','turma','data_aula','tipo');
+        $data['fundamental'] = $plano->fundamental;
+        // dd($data);
+        $data['pdf'] = PDF::loadView('pdfs.fundamental', $data);
+        Mail::to('wesley.s.gomes@hotmail.com')->send(new CreatePlanFundamental($data));
 
         return response()->json(['message' => 'email enviado com sucesso']);
     }

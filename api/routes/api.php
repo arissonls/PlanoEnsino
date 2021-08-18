@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FundamentalController;
 use App\Http\Controllers\PlanoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
-    return response()->json(['message' => 'tudo ok por aki']);
-});
+
+Route::resource('plan', PlanoController::class);
+Route::resource('fundamental', FundamentalController::class);
+
+Route::post('fundamental/sendmail/{id}', [FundamentalController::class, 'sendEmailCreate']);
 
 
 Route::post('/mail', [PlanoController::class, 'sendEmail']);
