@@ -1,30 +1,24 @@
 <?php
 
 use App\Http\Controllers\FundamentalController;
-use App\Http\Controllers\PlanoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
+Route::prefix('fundamental')->group( function () {
+    Route::post('/sendmail/{id}', [FundamentalController::class, 'sendEmailCreate']);
+    Route::get('/componentes', [FundamentalController::class, 'componentes']);
+    Route::get('/ano_faixa/{id_componente}', [FundamentalController::class, 'ano_faixa']);
+    Route::get('/campos_atuacao/{id_ano}', [FundamentalController::class, 'campos_atuacao']);
+    Route::get('/praticas_linguagem/{id_campo}/{id_ano}', [FundamentalController::class, 'praticas_linguagem']);
+    Route::get('/objetos/{id_pratica}/{id_ano}', [FundamentalController::class, 'objetos_conhecimento']);
+    Route::get('/habilidades/{id_objeto}/{id_ano}', [FundamentalController::class, 'habilidades']);
+});
 
-Route::resource('plan', PlanoController::class);
 Route::resource('fundamental', FundamentalController::class);
 
-Route::post('fundamental/sendmail/{id}', [FundamentalController::class, 'sendEmailCreate']);
-
-
-Route::post('/mail', [PlanoController::class, 'sendEmail']);
-
+// Route::resource('plan', PlanoController::class);
+// Route::post('/mail', [PlanoController::class, 'sendEmail']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
