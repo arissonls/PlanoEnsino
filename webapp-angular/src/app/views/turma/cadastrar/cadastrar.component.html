@@ -1,0 +1,60 @@
+<div class="animated fadeIn">
+
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-users"></i> Cadastro de Turmas
+    </div>
+    <div class="card-body">
+      <form novalidate (ngSubmit)="adicionarTurma()" [formGroup]="cadastroTurmaForm">
+        <div class="row form-group">
+          <div class="col-sm-5">
+            <label for="escola">Instituição de Ensino</label>
+            <input
+              type="text"
+              id="escola"
+              name="escola"
+              class="form-control"
+              formControlName="instituicao_ensino"
+            />
+          </div>
+          <div class="col-sm-4">
+            <label for="escola">Turma <span class="required-icon">*</span></label>
+            <input
+              type="text"
+              id="descricao"
+              name="descricao"
+              [ngClass]="{'form-control':true, 'is-invalid': cadastroTurmaForm.controls['turma'].errors && (cadastroTurmaForm.controls['turma'].touched || cadastroTurmaForm.controls['turma'].dirty)}"
+              formControlName="turma"
+            />
+
+            <span class="invalid-feedback" *ngIf="cadastroTurmaForm.controls['turma'].errors && (cadastroTurmaForm.controls['turma'].touched || cadastroTurmaForm.controls['turma'].dirty)" >
+              <p>Prencha o campo turma!</p>
+            </span>
+          </div>
+          <div class="col-sm-3">
+            <label>Ano <span class="required-icon">*</span></label>
+            <select 
+              [ngClass]="{'form-control':true, 'is-invalid': cadastroTurmaForm.controls['ano'].errors && (cadastroTurmaForm.controls['ano'].touched || cadastroTurmaForm.controls['ano'].dirty)}"
+              id="ano" name="ano" formControlName="ano">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+            <span class="invalid-feedback" *ngIf="cadastroTurmaForm.controls['ano'].errors && (cadastroTurmaForm.controls['ano'].touched || cadastroTurmaForm.controls['ano'].dirty)" >
+              <p>Selecione o ano!</p>
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-success" [disabled]="cadastroTurmaForm.isValid">
+          Salvar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
