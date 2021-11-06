@@ -1,57 +1,23 @@
- <!--main content start-->
- <section id="main-content">
-  <section class="wrapper">
-    <div class="row">
-      <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-list-alt" style="color: #c16dbb;"></i> Relatórios</h3>
-      </div>
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <i class="cil-list-numbered"></i>
+      Relatórios
     </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <section class="panel">
-          <header class="panel-heading custom-green-bg">
-            Relatórios
-          </header>
-          <div class="panel-body">
-            <div class="row form-group">
-              <div class="col-sm-12">
-                <label for="turma_prof">Turma</label>
-                <select class="form-control" id="turma_prof" name="turma_prof">
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-success btn-lg" id="btn_relatorio" onclick="relatorio()" disabled>Gerar Relatório</button>
-            <hr>
-            <div class="form-group oculta">
-              <div class="row form-group">
-                <div class="col-sm-12 ">
-                  <a class="btn btn-primary btn-block" id="link_ministradas" data-toggle="collapse" href="#ministradas" role="button" aria-expanded="false" aria-controls="ministradas">
-                    Habilidades Ministradas
-                  </a>
-                  <div class="collapse" id="ministradas">
-                    <hr>
-                    <div class="card card-body" id="habilidades_ministradas" >
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-sm-12">
-                  <a class="btn btn-primary btn-block" id="link_faltantes" data-toggle="collapse" href="#faltantes" role="button" aria-expanded="false" aria-controls="faltantes">
-                    Habilidades Faltantes
-                  </a>
-                  <div class="collapse" id="faltantes">
-                    <hr>
-                    <div class="card card-body" id="habilidades_faltantes">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+    <div class="card-body">
+      <div class="row form-group">
+        <div class="col-sm-12">
+          <label for="turma_prof">Turma</label>
+          <select
+            class="form-control"
+            id="turma_prof"
+            name="turma_prof"
+          ></select>
+        </div>
       </div>
+      <button class="btn btn-success" id="btn_relatorio">
+        Gerar Relatório
+      </button>
     </div>
-  </section>
-</section>
+  </div>
+</div>

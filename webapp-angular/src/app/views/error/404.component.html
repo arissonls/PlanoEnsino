@@ -2,19 +2,20 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="clearfix">
-          <h1 class="float-left display-3 mr-4">404</h1>
-          <h4 class="pt-3">Oops! You're lost.</h4>
-          <p class="text-muted">The page you are looking for was not found.</p>
+        <div class="clearfix mb-4">
+          <h1 class="float-left display-1 mr-4">404</h1>
+          <h3 class="pt-3">Opa! Página não encontrada.</h3>
+          <p class="text-muted">A página não pode ser encontrada ou ainda está em desenvolvimento.</p>
         </div>
         <div class="input-prepend input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-search"></i></span>
-          </div>
-          <input id="prependedInput" class="form-control" size="16" type="text" placeholder="What are you looking for?">
-          <span class="input-group-append">
-            <button class="btn btn-info" type="button">Search</button>
-          </span>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            type="button"
+            aria-pressed="true"
+            class="btn btn-block btn-info active btn-lg"
+            >Início</a
+          >
         </div>
       </div>
     </div>

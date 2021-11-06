@@ -8,6 +8,20 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
+    name: 'Escolas'
+  },
+  {
+    name: 'Minhas escolas',
+    url: '/escola/listar',
+    icon: 'cil-school'
+  },
+  {
+    name: 'Cadastrar escola',
+    url: '/escola/cadastrar',
+    icon: 'fa fa-plus'
+  },
+  {
+    title: true,
     name: 'Turmas'
   },
   {

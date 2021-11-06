@@ -55,12 +55,20 @@ export const routes: Routes = [
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
+        path: 'escola',
+        loadChildren: () => import('./views/escola/models/escola.module').then(m => m.EscolaModule)
+      },
+      {
         path: 'turma',
         loadChildren: () => import('./views/turma/models/turma.module').then(m => m.TurmaModule)
       },
       {
         path: 'plano-aula',
         loadChildren: () => import('./views/plano-aula/models/plano-aula.module').then(m => m.PlanoAulaModule)
+      },
+      {
+        path: 'relatorios',
+        loadChildren: () => import('./views/relatorio/models/relatorios.module').then(m => m.RelatoriosModule)
       }
     ]
   },
