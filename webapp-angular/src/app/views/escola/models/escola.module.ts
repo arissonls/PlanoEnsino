@@ -8,6 +8,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { EscolaComponent } from '../listar/escola.component';
 import { EscolaRoutingModule } from '../route/escola-routing.module';
 import { CadastrarEscolaComponent } from '../cadastrar/cadastrar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { CadastrarEscolaComponent } from '../cadastrar/cadastrar.component';
     EscolaRoutingModule,
     ChartsModule,
     BsDropdownModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    RouterModule
   ],
   declarations: [ EscolaComponent, CadastrarEscolaComponent ]
 })

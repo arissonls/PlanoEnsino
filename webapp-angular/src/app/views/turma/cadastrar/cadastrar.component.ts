@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Turma } from "../models/turma";
 
 @Component({
-  selector: "app-cadastrar",
+  selector: "app-cadastrar-turma",
   templateUrl: "./cadastrar.component.html",
 })
 export class CadastrarTurmaComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
-
+  mudancasNaoSalvas: boolean;
   cadastroTurmaForm!: FormGroup;
   turmaClass!: Turma;
 
@@ -21,6 +21,10 @@ export class CadastrarTurmaComponent implements OnInit {
   }
 
   adicionarTurma() {
+    this.mudancasNaoSalvas = false;
+    if(this.cadastroTurmaForm.dirty){
+      this.mudancasNaoSalvas = true;
+    }
     this.turmaClass = Object.assign(
       {},
       this.turmaClass,

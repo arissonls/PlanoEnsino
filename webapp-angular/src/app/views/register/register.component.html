@@ -5,43 +5,133 @@
         <div class="col-md-6 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-              <form>
-                <h1>Register</h1>
-                <p class="text-muted">Create your account</p>
+              <form [formGroup]="form">
+                <h1>Registro</h1>
+                <p class="text-muted">Crie sua conta</p>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
+                    <span class="input-group-text"
+                      ><i class="icon-user"></i
+                    ></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nome"
+                    autocomplete="off"
+                    formControlName="nome"
+                    [ngClass]="{'is-invalid': displayMessage.nome}"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.nome">
+                    <p [innerHTML]="displayMessage.nome"></p>
+                  </span>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text">@</span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Email"
+                    autocomplete="off"
+                    formControlName="email"
+                    [ngClass]="{ 'is-invalid': displayMessage.email }"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.email">
+                    <p [innerHTML]="displayMessage.email"></p>
+                  </span>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                    <span class="input-group-text"
+                      ><i class="cil-phone"></i
+                    ></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Telefone"
+                    autocomplete="off"
+                    formControlName="telefone"
+                    [ngClass]="{'is-invalid': displayMessage.telefone}"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.telefone">
+                    <p [innerHTML]="displayMessage.telefone"></p>
+                  </span>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="fa fa-drivers-license-o"></i
+                    ></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="CPF"
+                    autocomplete="off"
+                    formControlName="cpf"
+                    [ngClass]="{'is-invalid': displayMessage.cpf}"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.cpf">
+                    <p [innerHTML]="displayMessage.cpf"></p>
+                  </span>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-lock"></i
+                    ></span>
+                  </div>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Senha"
+                    autocomplete="off"
+                    formControlName="password"
+                    [ngClass]="{'is-invalid': displayMessage.password}"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.password">
+                    <p [innerHTML]="displayMessage.password"></p>
+                  </span>
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                    <span class="input-group-text"
+                      ><i class="icon-lock"></i
+                    ></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Repita a senha"
+                    autocomplete="off"
+                    formControlName="password_confirmation"
+                    [ngClass]="{'is-invalid': displayMessage.password_confirmation}"
+                  />
+                  <span class="invalid-feedback" *ngIf="displayMessage.password_confirmation">
+                    <p [innerHTML]="displayMessage.password_confirmation"></p>
+                  </span>
                 </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
               </form>
+              <button
+                type="button"
+                class="btn btn-block btn-success"
+                (click)="adicionarUsuario()"
+              >
+                Create Account
+              </button>
             </div>
             <div class="card-footer p-4">
+              {{form.valid}}
               <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
-                </div>
-                <div class="col-6">
-                  <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
+                <div class="col-12">
+                  <a
+                    [routerLink]="['/login']"
+                    class="btn btn-block btn-secondary"
+                    ><span>Voltar</span></a
+                  >
                 </div>
               </div>
             </div>
