@@ -11,6 +11,7 @@ import {
   FormControl,
   FormControlName,
   FormGroup,
+  ValidatorFn,
   Validators,
 } from "@angular/forms";
 import { CustomValidators } from "ngx-custom-validators";
@@ -23,7 +24,6 @@ import {
 } from "../../utils/generic-form-validation";
 import { Usuario } from "./models/usuarios";
 import { RegistraService } from "./services/registra.service";
-
 @Component({
   selector: "app-cadastrar-usuario",
   templateUrl: "./register.component.html",
@@ -66,24 +66,33 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    let senha = new FormControl('', [
+    let senha = new FormControl("", [
       Validators.required,
-      CustomValidators.rangeLength([6, 15]),
+      Validators.maxLength(15),
+      Validators.minLength(6),
     ]);
-    let senhaConfirm = new FormControl('', [
+    let senhaConfirm = new FormControl("", [
       Validators.required,
-      CustomValidators.rangeLength([6, 15]),
-      CustomValidators.equalTo(senha),
+      Validators.maxLength(15),
+      Validators.minLength(6),
     ]);
-    this.form = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: senha,
-      password_confirmation: senhaConfirm,
-      device_name: ["web"],
-      telefone: ['', [Validators.required, CustomValidators.rangeLength([10,11])]],
-      cpf: ['', [Validators.required, CustomValidators.range([11])]],
-    });
+    this.form = this.fb.group(
+      {
+        nome: ["", [Validators.required, Validators.minLength(3)]],
+        email: ["", [Validators.required, Validators.email]],
+        password: senha,
+        password_confirmation: senhaConfirm,
+        device_name: ["web"],
+        telefone: [
+          "",
+          [Validators.required, CustomValidators.rangeLength([10, 11])],
+        ],
+        cpf: ["", [Validators.required, CustomValidators.range([11])]],
+      },
+      {
+        validator: this.passwordValidation("password", "password_confirmation"),
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -100,24 +109,41 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     if (this.form.dirty && this.form.valid) {
       this.usuario = Object.assign({}, this.usuario, this.form.value);
 
-      this.RegistraService.registraUsuario(this.usuario)
-        .subscribe(
-          sucesso => {this.processarSucesso(sucesso)},
-          falha => {this.processarFalha(falha)}
-        );
-    }else{
-      alert('asdasd');
-      console.error(this.form.valid);
-      
+      this.RegistraService.registraUsuario(this.usuario).subscribe(
+        (sucesso) => {
+          this.processarSucesso(sucesso);
+        },
+        (falha) => {
+          this.processarFalha(falha);
+        }
+      );
+    } else {
+      alert("Ops!! Alguma coisa deu errado!!");
     }
   }
 
-  processarSucesso(response: any){
+  processarSucesso(response: any) {}
 
+  processarFalha(fail: any) {}
+
+  passwordValidation(targetKey: string, toMatchKey: string): ValidatorFn {
+    return (group: FormGroup): { [key: string]: any } => {
+      const target = group.controls[targetKey];
+      const toMatch = group.controls[toMatchKey];
+      if (target.touched && toMatch.touched) {
+        const isMatch = target.value === toMatch.value;
+        // set equal value error on dirty controls
+        if (!isMatch && target.valid && toMatch.valid) {
+          toMatch.setErrors({ equalValue: targetKey });
+          const message = targetKey + " != " + toMatchKey;
+          return { equalValue: message };
+        }
+        if (isMatch && toMatch.hasError("equalValue")) {
+          toMatch.setErrors(null);
+        }
+      }
+
+      return null;
+    };
   }
-
-  processarFalha(fail: any){
-    
-  }
-
 }
